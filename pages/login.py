@@ -15,22 +15,21 @@ class Login(BaseDriver):
     # Locators
     EMAIL = "email"
     PASSWORD = "password"
-    CONTINUE = "#entry > div > form > fieldset.actions.noMarginAbove > button"
-    LOGIN = "//input[@type='submit']"
+    CONTINUE = "button[type=\"submit\"]"
+    LOGIN = "button[type=\"submit\"]"
 
     # get funtions
     def get_email_field(self):
         return self.driver.find_element(By.NAME, self.EMAIL)
 
-    def get_password_field(self):
-        return BaseDriver.wait_until_element_is_clickable(self, "By.NAME", "password")
-        # return self.driver.find_element(By.NAME, self.PASSWORD)
-
     def get_continue_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.CONTINUE)
 
+    def get_password_field(self):
+        return self.driver.find_element(By.NAME, self.PASSWORD)
+
     def get_login_button(self):
-        return self.driver.find_element(By.XPATH, self.LOGIN)
+        return self.driver.find_element(By.CSS_SELECTOR, self.LOGIN)
 
     # set functions
     def enter_email_id(self, email):
