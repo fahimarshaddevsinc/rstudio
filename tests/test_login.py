@@ -15,7 +15,9 @@ class TestLogin(softest.TestCase):
         self.ut = Utils()
 
     def test_login_successful(self):
-        self.lgn.login_to_website("", "")
+        email = "emailusman.66@gmail.com"
+        password = "Helloworld@11"
+        self.lgn.login_to_website(email, password)
         self.ut.assert_text("description", "description")
 
 

@@ -23,6 +23,7 @@ def setup(request, browser, url):
     elif browser == "edge":
         s=Service(executable_path=EdgeChromiumDriverManager().install())
         driver = webdriver.Edge(service=s)
+    #url="https://login.rstudio.cloud/"
     driver.get(url)
     driver.maximize_window()
     request.cls.driver = driver
