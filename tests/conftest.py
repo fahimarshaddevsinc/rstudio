@@ -29,7 +29,7 @@ def setup(request, browser):
     driver.maximize_window()
     request.cls.driver = driver
     yield
-    driver.close()
+    # driver.close()
 
 
 def pytest_addoption(parser):

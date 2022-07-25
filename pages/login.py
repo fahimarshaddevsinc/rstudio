@@ -17,6 +17,8 @@ class Login(BaseDriver):
     PASSWORD = "//input[@name='password']"
     CONTINUE = "button[type=\"submit\"]"
     LOGIN = "button[type=\"submit\"]"
+    RSTUDIO_CLOUD = "a[@class='appPicker cloud noLink']"
+    LOGIN_MESSAGE_FIELD = "//span[contains(text(), 'You are logged in to RStudio. Please select your destination.')]"
 
     # get funtions
     def get_email_field(self):
@@ -31,6 +33,12 @@ class Login(BaseDriver):
     def get_login_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.LOGIN)
 
+    def get_rstudio_button(self):
+        return self.driver.find_element(By.XPATH, self.RSTUDIO_CLOUD)
+
+    def get_login_text(self):
+        return self.driver.find_element(By.XPATH, self.LOGIN_MESSAGE_FIELD).text
+
     # set functions
     def enter_email_id(self, email):
         self.get_email_field().send_keys(email)
@@ -44,10 +52,15 @@ class Login(BaseDriver):
     def click_login_button(self):
         self.get_login_button().click()
 
+    def click_rstudio_cloud(self):
+        self.get_rstudio_button().click()
+
     # test functions
     def login_to_website(self, email, password):
         self.enter_email_id(email)
         self.click_continue_button()
-        time.sleep(10)
+        element = BaseDriver.wait_until_element_presence_of_element_located(self, By.XPATH, self.PASSWORD)
         self.enter_password(password)
         self.click_login_button()
+        return self.get_login_text()
+

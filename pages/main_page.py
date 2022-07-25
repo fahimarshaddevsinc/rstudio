@@ -18,13 +18,18 @@ class MainPage(BaseDriver):
     NEW_PROJECT_BUTTON = "//button[@class='action menuDropDown withActionTitle imageRight alwaysShowTitle']"
     NEW_RSTUDIO_PROJECT_BUTTON = "//button[@class='action newRStudioProject']"
     NEW_PROJECT_NAME_FIELD = "currentLocation"
+    HEADER_TITLE = "headerTitle"
+
+    # Get Functions
+    def get_header_title(self):
+      return self.driver.find_element(By.ID, self.HEADER_TITLE).text
 
     # Set Functions
     def click_new_space(self):
       self.driver.find_element(By.XPATH, self.NEW_SPACE).click()
 
-    def enter_new_space_name(self, space_name):
-      self.driver.find_element(By.ID, self.NEW_SPACE_NAME_FIELD).send_keys(space_name)
+    def enter_new_space_name(self, name):
+      self.driver.find_element(By.ID, self.NEW_SPACE_NAME_FIELD).send_keys(name)
 
     def click_create_space_button(self):
       self.driver.find_element(By.XPATH, self.CREATE_NEW_SPACE_BUTTON).click()
@@ -35,19 +40,25 @@ class MainPage(BaseDriver):
     def click_new_rstudio_button(self):
       self.driver.find_element(By.XPATH, self.NEW_RSTUDIO_PROJECT_BUTTON).click()
 
-    def enter_new_project_name(self, project_name):
+    def enter_new_project_name(self, name):
       self.driver.find_element(By.ID, self.NEW_PROJECT_NAME_FIELD).send_keys(project_name)
 
-    # Test Functions
-    def create_new_space(self, space_name):
-      self.click_new_space()
-      time.sleep(5)
-      self.enter_new_space_name(self, space_name)
-      time.sleep(2)
-      self.click_create_space_button()
-      time.sleep(5)
 
-    def create_new_project(self, project_name):
+
+    # Test Functions
+    def create_new_space(self, name):
+      self.driver.get("https://rstudio.cloud/projects/")
+      element = BaseDriver.wait_until_element_presence_of_element_located(self, By.XPATH, self.NEW_SPACE)
+      self.click_new_space()
+      element = BaseDriver.wait_until_element_presence_of_element_located(self, By.ID, self.NEW_SPACE_NAME_FIELD)
+      self.enter_new_space_name(name)
+      element = BaseDriver.wait_until_element_presence_of_element_located(self, By.XPATH, self.CREATE_NEW_SPACE_BUTTON)
+      self.click_create_space_button()
+      time.sleep(2)
+      element = BaseDriver.wait_until_element_presence_of_element_located(self, By.ID, self.HEADER_TITLE)
+      return self.get_header_title()
+
+    def create_new_project(self, name):
       self.click_new_project_button()
       self.click_new_rstudio_button()
-      self.enter_new_project_name(project_name)
+      self.enter_new_project_name(name)
