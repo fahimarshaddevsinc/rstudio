@@ -14,7 +14,7 @@ class Login(BaseDriver):
 
     # Locators
     EMAIL = "email"
-    PASSWORD = "password"
+    PASSWORD = "//input[@name='password']"
     CONTINUE = "button[type=\"submit\"]"
     LOGIN = "button[type=\"submit\"]"
 
@@ -26,7 +26,7 @@ class Login(BaseDriver):
         return self.driver.find_element(By.CSS_SELECTOR, self.CONTINUE)
 
     def get_password_field(self):
-        return self.driver.find_element(By.NAME, self.PASSWORD)
+        return self.driver.find_element(By.XPATH, self.PASSWORD)
 
     def get_login_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.LOGIN)
@@ -44,8 +44,10 @@ class Login(BaseDriver):
     def click_login_button(self):
         self.get_login_button().click()
 
+    # test functions
     def login_to_website(self, email, password):
         self.enter_email_id(email)
         self.click_continue_button()
+        time.sleep(10)
         self.enter_password(password)
         self.click_login_button()

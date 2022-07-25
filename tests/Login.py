@@ -68,10 +68,10 @@ print(Fore.GREEN + 'Click on Create button')
 time.sleep(5)
 
 #Click on New Project
-Project = driver.find_element(By.XPATH,"//button[@class='action menuDropDown withActionTitle imageRight alwaysShowTitle']").click()
+Project = driver.find_element(By.XPATH, "//button[@class='action menuDropDown withActionTitle imageRight alwaysShowTitle']").click()
 print(Fore.GREEN + 'Click on New Project button')
 time.sleep(2)
-Project = driver.find_element(By.XPATH,"//button[@class='action newRStudioProject']").click()
+Project = driver.find_element(By.XPATH, "//button[@class='action newRStudioProject']").click()
 print(Fore.GREEN + 'Click on New RStudio Project button')
 time.sleep(20)
 Project = driver.find_element(By.ID, "currentLocation").send_keys("Auto-Project")
