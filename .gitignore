@@ -1,4 +1,6 @@
 .idea/
 .pytest_cache/
+/reports/
+/reports/*html/*
 *.log
 *__pycache__
