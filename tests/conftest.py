@@ -8,9 +8,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
+from pages.login import Login
+
 
 driver = None
 url="https://login.rstudio.cloud/"
+email = "emailusman.66@gmail.com"
+password = "Helloworld@11"
 
 @pytest.fixture(autouse=True)
 def setup(request, browser):
@@ -28,23 +32,20 @@ def setup(request, browser):
     driver.get(url)
     driver.maximize_window()
     request.cls.driver = driver
+    # Login in to Application
+    lgn = Login(driver)
+    lgn.login_to_website(email, password)
     yield
     driver.close()
 
 
 def pytest_addoption(parser):
     parser.addoption("--browser")
-    # parser.addoption("--url")
 
 
 @pytest.fixture(scope="class", autouse=True)
 def browser(request):
     return request.config.getoption("--browser")
-
-
-# @pytest.fixture(scope="class", autouse=True)
-# def url(request):
-#     return request.config.getoption("--url")
 
 
 @pytest.hookimpl(hookwrapper=True)

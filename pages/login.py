@@ -62,5 +62,6 @@ class Login(BaseDriver):
         element = BaseDriver.wait_until_element_presence_of_element_located(self, By.XPATH, self.PASSWORD)
         self.enter_password(password)
         self.click_login_button()
-        return self.get_login_text()
+
+    
 
